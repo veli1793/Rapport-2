@@ -1,0 +1,42 @@
+---
+title: "Lactate threshold"
+author: Vemundlien17@gmail.com
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+
+library(readxl)
+dat <- read_excel("~/Master Treningsfysiologi/Arbeidskrav 2/Rapport-2/Data/Utkast_1.xlsx")
+
+dat %>%
+  ggplot(aes(watt, lactate))  + 
+  geom_line(lty = 2) +
+  geom_point(shape = 21, fill = "lightblue", size = 2.5) +
+  geom_hline(yintercept = 4, color = "red") +
+  geom_vline(xintercept = 297, color = "blue") + 
+  geom_smooth(method = "lm", se = FALSE, formula = y ~ x, color = "#e41a1c") +
+  
+  # Adding a polynomial linear model to the plot
+  
+  # poly(x, 2) add a second degree polynomial model.
+  geom_smooth(method = "lm", se = FALSE, formula = y ~ poly(x, 2), color = "#377eb8") +
+  # poly(x, 3) add a third degree polynomial model.
+  geom_smooth(method = "lm", se = FALSE, formula = y ~ poly(x, 3), color = "#4daf4a") +
+  # poly(x, 4) add a forth degree polynomial model.
+  geom_smooth(method = "lm", se = FALSE, formula = y ~ poly(x, 4), color = "#ff7f00") 
+
+
+
+
+
+```
+```{r}
+dat %>%
+  m1 <- lm(lactate ~ watt, data = dat)
+```
+
+git config --global user.email vemundlien17@gmail.com
+git config --global user.name veli1793
+
